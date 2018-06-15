@@ -60,9 +60,9 @@ static char* lcd_advanced_item(uint8_t nr)
     else if (nr == 2 + BED_MENU_OFFSET + EXTRUDERS)
         strcpy_P(card.longFilename, PSTR("Home head"));
     else if (nr == 3 + BED_MENU_OFFSET + EXTRUDERS)
-        strcpy_P(card.longFilename, PSTR("Lower buildplate"));
+        strcpy_P(card.longFilename, PSTR("Home buildplate"));
     else if (nr == 4 + BED_MENU_OFFSET + EXTRUDERS)
-        strcpy_P(card.longFilename, PSTR("Raise buildplate"));
+        strcpy_P(card.longFilename, PSTR("Raise buildplate 5cm"));
     else if (nr == 5 + BED_MENU_OFFSET + EXTRUDERS)
         strcpy_P(card.longFilename, PSTR("Insert material"));
     else if (nr == 6 + BED_MENU_OFFSET + EXTRUDERS)
@@ -165,7 +165,7 @@ static void lcd_menu_maintenance_advanced()
             enquecommand_P(PSTR("G28 X Y"));
             enquecommand_P(PSTR("M84"));        // Release motors
         }
-        else if (IS_SELECTED_SCROLL(3 + BED_MENU_OFFSET + EXTRUDERS))   // Lower bed
+        else if (IS_SELECTED_SCROLL(3 + BED_MENU_OFFSET + EXTRUDERS))   // Home bed
         {
             lcd_lib_beep();
             enquecommand_P(PSTR("G28 Z"));
@@ -175,9 +175,11 @@ static void lcd_menu_maintenance_advanced()
         {
             char buffer[32];
             lcd_lib_beep();
-            enquecommand_P(PSTR("G28 Z"));
-            sprintf_P(buffer, PSTR("G1 F%i Z40"), int(homing_feedrate[Z_AXIS]));
+            //enquecommand_P(PSTR("G28 Z"));
+            enquecommand_P(PSTR("G91")); // G91: Set to Relative Positioning
+            sprintf_P(buffer, PSTR("G1 F%i Z50"), int(homing_feedrate[Z_AXIS]));
             enquecommand(buffer);
+            enquecommand_P(PSTR("G90")); // G90: Set to Absolute Positioning
             // Note: motors remain powered, otherwise the bed will descend by gravity.
         }
         else if (IS_SELECTED_SCROLL(5 + BED_MENU_OFFSET + EXTRUDERS))   // Insert material
@@ -189,7 +191,7 @@ static void lcd_menu_maintenance_advanced()
             
             lcd_change_to_menu_insert_material(lcd_menu_maintenance_advanced_return);
         }
-        else if (IS_SELECTED_SCROLL(6 + BED_MENU_OFFSET + EXTRUDERS))
+        else if (IS_SELECTED_SCROLL(6 + BED_MENU_OFFSET + EXTRUDERS)) // Move material
         {
             set_extrude_min_temp(0);
             active_extruder = 0;

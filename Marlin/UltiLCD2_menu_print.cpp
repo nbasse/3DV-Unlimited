@@ -87,14 +87,17 @@ static void abortPrint()
         primed = false;
     }
 
-    if (current_position[Z_AXIS] > Z_MAX_POS - 30)
-    {
-        enquecommand_P(PSTR("G28 X0 Y0"));
-        enquecommand_P(PSTR("G28 Z0"));
-    }else{
-        enquecommand_P(PSTR("G28"));
-    }
-    enquecommand_P(PSTR("M84"));
+    char buffer2[32];
+    enquecommand_P(PSTR("G91")); // G91: Set to Relative Positioning
+    sprintf_P(buffer2, PSTR("G1 F%i Z50"), int(homing_feedrate[Z_AXIS]));
+    enquecommand(buffer2);
+    enquecommand_P(PSTR("G90")); // G90: Set to Absolute Positioning
+
+    // joris dont home Z with z-unlimited after print
+    enquecommand_P(PSTR("G28 X0 Y0"));
+
+    // joris dont release stepper Z with z-unlimited after print
+    enquecommand_P(PSTR("M84 X Y E"));
 }
 
 static void checkPrintFinished()

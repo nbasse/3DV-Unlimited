@@ -1461,7 +1461,9 @@ bool lcd_material_check_temperature(unsigned long temperature)
 
 bool lcd_material_check_bed_temperature(unsigned long temperature)
 {
+  #if TEMP_SENSOR_BED != 0
     return temperature > BED_MAXTEMP;
+  #endif
 }
 
 bool lcd_material_check_fan_speed(unsigned long fanspeed)
