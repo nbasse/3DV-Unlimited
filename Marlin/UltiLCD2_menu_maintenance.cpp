@@ -60,9 +60,9 @@ static char* lcd_advanced_item(uint8_t nr)
     else if (nr == 2 + BED_MENU_OFFSET + EXTRUDERS)
         strcpy_P(card.longFilename, PSTR("Home head"));
     else if (nr == 3 + BED_MENU_OFFSET + EXTRUDERS)
-        strcpy_P(card.longFilename, PSTR("Home buildplate"));
+        strcpy_P(card.longFilename, PSTR("Home Z-axis"));
     else if (nr == 4 + BED_MENU_OFFSET + EXTRUDERS)
-        strcpy_P(card.longFilename, PSTR("Raise buildplate 5cm"));
+        strcpy_P(card.longFilename, PSTR("Raise Z-axis 5cm"));
     else if (nr == 5 + BED_MENU_OFFSET + EXTRUDERS)
         strcpy_P(card.longFilename, PSTR("Insert material"));
     else if (nr == 6 + BED_MENU_OFFSET + EXTRUDERS)
