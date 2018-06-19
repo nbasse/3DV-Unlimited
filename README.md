@@ -1,3 +1,10 @@
+
+Customized firmware for a converted Ultimaker 2+ to a 3 meter tall Z-unlimited version that is installed at the 3DVerkstan office / the 3D Meetup Center in stockholm. 
+
+The Hardware is based on the skyscraper kit by Rooie Joris and reinforced with aluminum beams. Some custum mounting was made to reinforce the bed and to simplify leveling. Heating with external PID-controller was also added to the bed. 
+More info about the hardware will be uploaded in the future.
+
+
 ==========================
 Marlin 3D Printer Firmware
 ==========================
